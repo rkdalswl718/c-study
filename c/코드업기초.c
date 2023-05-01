@@ -2,8 +2,10 @@
 
 int main()
 {
-    char x, y;
-scanf("%c %c", &x, &y);
-printf("%c %c", y, x);
+    int f,s;
+    scanf("%d-%d",&f,&s);
+    printf("%06d%07d",f,s);
+
+
     return 0;
 }

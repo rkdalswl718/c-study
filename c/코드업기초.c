@@ -2,9 +2,9 @@
 
 int main()
 {
-    int f,s;
-    scanf("%d-%d",&f,&s);
-    printf("%06d%07d",f,s);
+    char a[2001];
+    fgets(a, 2001, stdin);
+    printf("%s",a);
 
 
     return 0;

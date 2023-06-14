@@ -8,7 +8,7 @@ int f(int n){
 		return f(n-1)*n;
 	}
 	
-}
+
 
 int main (){
 	int n;

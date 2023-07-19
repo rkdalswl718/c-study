@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main() {
+    int n, sum=0, type, count, price, i;
+    scanf("%d", &n);
+    scanf("%d", &type);
+    for(i=1; i<=type; i++){
+        scanf("%d %d",&price, &count);
+        sum+= price*count;
+    }
+    if(n==sum)
+        printf("Yes");
+    else
+        printf("No");
+
+    return 0;
+}

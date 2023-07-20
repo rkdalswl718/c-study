@@ -1,13 +1,17 @@
 #include <stdio.h>
 
 int main() {
-    char numbers[10]={};
+    int numbers[101]={};
 
-    for (int i = 0; i < 10; i++) {
-        scanf("%c ",&numbers[i]);
+    for (int i = 0; i < 100; i++) {
+        scanf("%d ",&numbers[i]);
+        if(numbers[i]==0){
+            break;
+        }
+
+        if(i%2==1){
+            printf("%d ",numbers[i]);
+        }
     }
-
-    printf("%c %c %c", numbers[0], numbers[3], numbers[6]);
-
     return 0;
 }

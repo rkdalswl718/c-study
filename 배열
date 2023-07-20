@@ -1,13 +1,13 @@
 #include <stdio.h>
 
 int main() {
-    int numbers[10]={};
+    char numbers[10]={};
 
     for (int i = 0; i < 10; i++) {
-        scanf("%d ",&numbers[i]);
+        scanf("%c ",&numbers[i]);
     }
 
-    printf("%d %d %d", numbers[2], numbers[4], numbers[9]);
+    printf("%c %c %c", numbers[0], numbers[3], numbers[6]);
 
     return 0;
 }

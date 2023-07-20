@@ -1,17 +1,13 @@
 #include <stdio.h>
 
 int main() {
-    int numbers[10]; // 크기가 10인 정수형 배열 선언
+    int numbers[10]={};
 
-    // 1부터 10까지의 숫자를 배열에 대입
     for (int i = 0; i < 10; i++) {
-        numbers[i] = i + 1;
+        scanf("%d ",&numbers[i]);
     }
 
-    // 배열에 저장된 숫자를 차례대로 출력
-    for (int i = 0; i < 10; i++) {
-        printf("%d ", numbers[i]);
-    }
+    printf("%d %d %d", numbers[2], numbers[4], numbers[9]);
 
     return 0;
 }

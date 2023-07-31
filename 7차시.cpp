@@ -7,8 +7,6 @@ int f(int n){
 	else{
 		return f(n-1)*n;
 	}
-	
-
 
 int main (){
 	int n;

@@ -10,6 +10,6 @@ int f(int n){
 int main (){
 	int n;
 	scanf("%d",&n);
-	printf("%d",f(n));
+	printf("%d",f(n)); 
 }
 

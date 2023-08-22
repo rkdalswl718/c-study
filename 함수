@@ -1,20 +1,14 @@
 #include <stdio.h>
-void star(int count){
+void printnumber(int a,int b){
 
-    int num=1;
-    for(int i=1; i<=count; i++){
-        for(int j=1; j<=count; j++){
-        printf("%d ",num);
-        num++;
-        }
-    printf("\n");
-    }
+    printf("두 수의 합 = %d\n",a+b);
+    printf("두 수의 차 = %d",b-a);
 
 }
 
 int main (){
-    int count;
-    scanf("%d",&count);
-
-    star(count);
+    int a,b;
+    scanf("%d %d",&a,&b);
+    
+    printnumber(a,b);
 }

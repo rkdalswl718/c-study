@@ -1,14 +1,18 @@
 #include <stdio.h>
-void printnumber(int a,int b){
-
-    printf("두 수의 합 = %d\n",a+b);
-    printf("두 수의 차 = %d",b-a);
-
-}
+void printnumber(int a,int b,int c){
+    if(a>b){
+        printf("%d",a);
+    }
+    else if(b>c){
+        printf("%d",b);
+    }
+    else 
+        printf("%d",c);
+    }
 
 int main (){
-    int a,b;
-    scanf("%d %d",&a,&b);
+    int a,b,c;
+    scanf("%d %d %d",&a,&b,&c);
     
-    printnumber(a,b);
+    printnumber(a,b,c);
 }

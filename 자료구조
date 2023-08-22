@@ -1,26 +1,28 @@
 #include <stdio.h>
- 
- 
-int main()
-{
-    int Arr[1000] = {};
-    int N;
-    
-    scanf("%d",&N);
-    for(int i = 0; i< N; i++){
-        scanf("%d",&Arr[i]);
-    }
-    for(int k = 0; k< N; k++){
-        printf("%d: ",k+1);
-        for(int j = 0; j < N; j++){
-            if(k != j){
-                if(Arr[k] > Arr[j]){printf("> ");}
-                else if(Arr[k] < Arr[j]){printf("< ");}
-                else{printf("= ");}
+#include <string.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    while (n--) {
+        char quiz[81];
+        scanf("%s", quiz);
+
+        int score = 0; // 현재 문제까지의 점수
+        int totalScore = 0; // 전체 점수
+
+        for (int i = 0; i < strlen(quiz); i++) {
+            if (quiz[i] == 'O') {
+                score++;
+                totalScore += score;
+            } else {
+                score = 0;
             }
         }
-        printf("\n");
+
+        printf("%d\n", totalScore);
     }
- 
+
     return 0;
 }

@@ -1,15 +1,16 @@
 #include <stdio.h>
+void star(int count){
+    for(int i=1; i<=count; i++){
+        for(int j=1; j<=i; j++)
+        printf("*");
+    printf("\n");
+    }
 
-void printNumbers(int num) {
-    printf("10큰수 : %d\n", num + 10);
-    printf("10작은수 : %d", num - 10);
 }
 
-int main() {
-    int num;
-    scanf("%d", &num);
+int main (){
+    int count;
+    scanf("%d",&count);
 
-    printNumbers(num);
-
-    return 0;
+    star(count);
 }

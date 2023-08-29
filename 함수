@@ -1,18 +1,15 @@
 #include <stdio.h>
+#include <math.h>  // math.h 라이브러리 포함
 
-void printnumber(int a, int b, int c) {
-    int sum = a + b + c;
-    double average = (double)sum / 3;  // sum을 double로 변환하여 평균 계산
-
-    printf("평균 : %.2f", average);
+void printnumber(int a, int b) {
+    printf("%d", (int)round(pow(a, b)));  // pow() 함수 사용
 }
 
 int main() {
-    int a, b, c;
-    printf("세 과목의 점수를 입력하세요. ");
-    scanf("%d %d %d", &a, &b, &c);
+    int a, b;
+    scanf("%d %d", &a, &b);
     
-    printnumber(a, b, c);
+    printnumber(a, b);
 
     return 0;
 }

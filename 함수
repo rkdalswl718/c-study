@@ -1,47 +1,37 @@
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
-}
+int cal(int a,int b, char c){
+    int res = 0;
 
-int subtract(int a, int b) {
-    return a - b;
-}
-
-int multiply(int a, int b) {
-    return a * b;
-}
-
-int divide(int a, int b) {
-    if (b == 0) {
-        return 0; // Divide by zero case
+    if(c == '+'){
+        res = a+b;
+        return res;
     }
-    return a / b;
+    else if(c == '-'){
+        res = a-b;
+        return res;
+    }
+    else if(c == '*'){
+        res = a*b;
+        return res;
+    }
+    else if(c =='/'){
+        res = a/b;
+        return res;
+    }
+    else {
+        return 0;
+    }
 }
+
 
 int main() {
-    int a, b;
-    char op;
-
-    scanf("%d %c %d", &a, &op, &b);
-
-    switch (op) {
-        case '+':
-            printf("%d + %d = %d", a,b,add(a, b));
-            break;
-        case '-':
-            printf("%d - %d = %d", a,b, subtract(a, b));
-            break;
-        case '*':
-            printf("%d * %d = %d", a,b, multiply(a, b));
-            break;
-        case '/':
-            printf("%d / %d = %d", a,b, divide(a, b));
-            break;
-        default:
-            printf("Invalid operation\n");
-            break;
-    }
+    int a,b;
+    char c;
+    scanf("%d %c %d",&a,&c,&b);
+    int result = cal(a, b, c);
+    printf("%d %c %d = %d\n", a, c, b, result);
+    
 
     return 0;
 }

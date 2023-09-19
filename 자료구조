@@ -1,28 +1,55 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <time.h> // 난수 생성을 위한 헤더 파일
+
+void genRandom(int a[][5], int r);
+void outputArray(int a[][5], int r);
+float averageScore(int *row, int size);
 
 int main() {
-    int n;
-    scanf("%d", &n);
+    int score[4][5], i;
+    genRandom(score, 4);
+    outputArray(score, 4);
 
-    while (n--) {
-        char quiz[81];
-        scanf("%s", quiz);
-
-        int score = 0; // 현재 문제까지의 점수
-        int totalScore = 0; // 전체 점수
-
-        for (int i = 0; i < strlen(quiz); i++) {
-            if (quiz[i] == 'O') {
-                score++;
-                totalScore += score;
-            } else {
-                score = 0;
-            }
-        }
-
-        printf("%d\n", totalScore);
+    for (i = 0; i < 4; i++) {
+        printf("선수 %d : %.2f\n", i + 1, averageScore(score[i], 5));
     }
 
     return 0;
+}
+
+void genRandom(int a[][5], int r) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < 5; j++) {
+            a[i][j] = rand() % 10 + 1; // 1~10 사이의 난수 생성
+        }
+    }
+}
+
+void outputArray(int a[][5], int r) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("    %d", a[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+float averageScore(int *row, int size) {
+    int sum = 0;
+    int min = row[0];
+    int max = row[0];
+
+    for (int i = 0; i < size; i++) {
+        sum += row[i];
+        if (row[i] < min) {
+            min = row[i];
+        }
+        if (row[i] > max) {
+            max = row[i];
+        }
+    }
+
+    float average = (float)(sum - min - max) / (size - 2);
+    return average;
 }

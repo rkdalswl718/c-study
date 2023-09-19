@@ -1,31 +1,43 @@
-#include <stdio.h>
-
+#include<stdio.h>
 int main() {
-    int n, m;
-    scanf("%d %d", &n, &m);
+    int a[50][50], num = 0, le, re, te, be;
+    int n, i, j;
+    scanf("%d", &n);
+    re = be = n; // 오른쪽, 아래쪽 첨자 초기화
+    le = te = 1; // 왼쪽, 위쪽 첨자 초기화
 
-    int arr[101][101] = {0};
-    int num = 1;
-
-    for (int k = 2; k <= n + m; k++) {
-        for (int j = 1; j <= m; j++) {
-            for (int i = 1; i <= n; i++) {
-                if (i + j == k) {
-                    arr[i][j] = num;
-                    num++;
-                }
-            }
+    while (num < n * n) {
+        // 오른쪽으로 이동하며 숫자 배치
+        for (j = le; j <= re && num < n * n; j++) {
+            a[te][j] = ++num;
         }
+        te++;
+
+        // 아래쪽으로 이동하며 숫자 배치
+        for (i = te; i <= be && num < n * n; i++) {
+            a[i][re] = ++num;
+        }
+        re--;
+
+        // 왼쪽으로 이동하며 숫자 배치
+        for (j = re; j >= le && num < n * n; j--) {
+            a[be][j] = ++num;
+        }
+        be--;
+
+        // 위쪽으로 이동하며 숫자 배치
+        for (i = be; i >= te && num < n * n; i--) {
+            a[i][le] = ++num;
+        }
+        le++;
     }
 
     // 배열 출력
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            printf("%d ", arr[i][j]);
+    for (i = 1; i <= n; i++, puts("")) {
+        for (j = 1; j <= n; j++) {
+            printf("%d ", a[i][j]);
         }
-        printf("\n");
     }
 
     return 0;
 }
- 

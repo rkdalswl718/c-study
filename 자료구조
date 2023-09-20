@@ -1,43 +1,181 @@
-#include<stdio.h>
-int main() {
-    int a[50][50], num = 0, le, re, te, be;
-    int n, i, j;
-    scanf("%d", &n);
-    re = be = n; // 오른쪽, 아래쪽 첨자 초기화
-    le = te = 1; // 왼쪽, 위쪽 첨자 초기화
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-    while (num < n * n) {
-        // 오른쪽으로 이동하며 숫자 배치
-        for (j = le; j <= re && num < n * n; j++) {
-            a[te][j] = ++num;
-        }
-        te++;
+#define MAX_QUEUE_SIZE 100
+typedef int element;
+typedef struct { // 큐 타입
+    element data[MAX_QUEUE_SIZE];
+    int front, rear;
+} QueueType;
 
-        // 아래쪽으로 이동하며 숫자 배치
-        for (i = te; i <= be && num < n * n; i++) {
-            a[i][re] = ++num;
-        }
-        re--;
+// 오류 함수
+void error(char *message)
+{
+    fprintf(stderr, "%s\n", message);
+    exit(1);
+}
 
-        // 왼쪽으로 이동하며 숫자 배치
-        for (j = re; j >= le && num < n * n; j--) {
-            a[be][j] = ++num;
-        }
-        be--;
+// 큐 초기화 함수
+void init_queue(QueueType *q)
+{
+    q->front = q->rear = 0;
+}
 
-        // 위쪽으로 이동하며 숫자 배치
-        for (i = be; i >= te && num < n * n; i--) {
-            a[i][le] = ++num;
-        }
-        le++;
+// 공백 상태 검출 함수
+int is_empty(QueueType *q)
+{
+    return (q->front == q->rear);
+}
+
+// 포화 상태 검출 함수
+int is_full(QueueType *q)
+{
+    return ((q->rear + 1) % MAX_QUEUE_SIZE == q->front);
+}
+
+// 삽입 함수
+void enqueue(QueueType *q, element item)
+{
+    if (is_full(q))
+        error("큐가 포화상태입니다.");
+    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
+    q->data[q->rear] = item;
+}
+
+// 삭제 함수
+element dequeue(QueueType *q)
+{
+    if (is_empty(q))
+        error("큐가 공백상태입니다.");
+    q->front = (q->front + 1) % MAX_QUEUE_SIZE;
+    return q->data[q->front];
+}
+
+#define BUCKETS 10
+#define DIGITS 4
+void radix_sort(int list[], int n)
+{
+    int i, b, d, factor = 1;
+    QueueType queues[BUCKETS];
+
+    for (b = 0; b < BUCKETS; b++) init_queue(&queues[b]);
+
+    for (d = 0; d < DIGITS; d++) {
+        for (i = 0; i < n; i++)
+            enqueue(&queues[(list[i] / factor) % 10], list[i]);
+
+        for (b = i = 0; b < BUCKETS; b++)
+            while (!is_empty(&queues[b]))
+                list[i++] = dequeue(&queues[b]);
+        factor *= 10;
     }
+}
 
-    // 배열 출력
-    for (i = 1; i <= n; i++, puts("")) {
-        for (j = 1; j <= n; j++) {
-            printf("%d ", a[i][j]);
-        }
+#define SIZE 10
+
+int main(void)
+{
+    int list[SIZE];
+    srand(time(NULL));
+    for (int i = 0; i < SIZE; i++)
+        list[i] = rand() % 100;
+
+    radix_sort(list, SIZE);
+    for (int i = 0; i < SIZE; i++)
+        printf("%d ", list[i]);
+    printf("\n");
+
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_QUEUE_SIZE 100
+typedef int element;
+typedef struct { // 큐 타입
+    element data[MAX_QUEUE_SIZE];
+    int front, rear;
+} QueueType;
+
+// 오류 함수
+void error(char *message)
+{
+    fprintf(stderr, "%s\n", message);
+    exit(1);
+}
+
+// 큐 초기화 함수
+void init_queue(QueueType *q)
+{
+    q->front = q->rear = 0;
+}
+
+// 공백 상태 검출 함수
+int is_empty(QueueType *q)
+{
+    return (q->front == q->rear);
+}
+
+// 포화 상태 검출 함수
+int is_full(QueueType *q)
+{
+    return ((q->rear + 1) % MAX_QUEUE_SIZE == q->front);
+}
+
+// 삽입 함수
+void enqueue(QueueType *q, element item)
+{
+    if (is_full(q))
+        error("큐가 포화상태입니다.");
+    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
+    q->data[q->rear] = item;
+}
+
+// 삭제 함수
+element dequeue(QueueType *q)
+{
+    if (is_empty(q))
+        error("큐가 공백상태입니다.");
+    q->front = (q->front + 1) % MAX_QUEUE_SIZE;
+    return q->data[q->front];
+}
+
+#define BUCKETS 10
+#define DIGITS 4
+void radix_sort(int list[], int n)
+{
+    int i, b, d, factor = 1;
+    QueueType queues[BUCKETS];
+
+    for (b = 0; b < BUCKETS; b++) init_queue(&queues[b]);
+
+    for (d = 0; d < DIGITS; d++) {
+        for (i = 0; i < n; i++)
+            enqueue(&queues[(list[i] / factor) % 10], list[i]);
+
+        for (b = i = 0; b < BUCKETS; b++)
+            while (!is_empty(&queues[b]))
+                list[i++] = dequeue(&queues[b]);
+        factor *= 10;
     }
+}
+
+#define SIZE 10
+
+int main(void)
+{
+    int list[SIZE];
+    srand(time(NULL));
+    for (int i = 0; i < SIZE; i++)
+        list[i] = rand() % 100;
+
+    radix_sort(list, SIZE);
+    for (int i = 0; i < SIZE; i++)
+        printf("%d ", list[i]);
+    printf("\n");
 
     return 0;
 }

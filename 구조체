@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// 구조체 선언
+struct Goods {
+    char name[50];
+    int price;
+    bool limit;
+};
+
+int main() {
+    // Goods 구조체 변수 초기화
+    struct Goods item1 = { "교향곡 전집", 100000, false };
+
+    // Goods 포인터 선언과 초기화
+    struct Goods* ptr = &item1;
+	// 구조체 변수 주소에 접근ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
+
+    // ptr 포인터를 사용하여 limit 값을 true로 변경
+    ptr->limit = true;
+
+    if (ptr->limit == true)
+        printf("한정판\n");
+    else
+        printf("일반판\n");
+
+    return 0;
+}

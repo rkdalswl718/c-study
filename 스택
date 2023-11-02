@@ -1,88 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <stdbool.h>
+#define MAX_STACK_SIZE 100
+typedef int element; //int를 element로 재정의
+typedef struct{
+	int top;
+	element data[MAX_STACK_SIZE];
+}Stack;
+//문제) 스택 구조체 변수 정의
+Stack s;
+//문제) 전역변수로 스택 구조체 선언선언
 
-#define MAX 100
+void initStack(){//초기화
+	 s.top == -1;
+}
+bool isEmpty(){//비어잇는지
+ return(s.top == -1);
+}
+bool isFull(){//차있는지
+ return(s.top == (MAX_STACK_SIZE -1));
+}	 
+void push(element item){ //삽입
+	if(isEmpty()){
+		printf("스택이꽉차있습니다.");
+		return;
+	}
+	else
+		return s.data[s.top++];
 
-typedef int element;
-typedef struct {
-    element data[MAX];
-    int top;
-} Stack;
-
-void initStack(Stack* s) {
-    s->top = -1;
 }
 
-int isEmpty(Stack* s) {
-    return s->top == -1;
+element pop(){ //반환후 제거
+	if(isEmpty()) {
+		printf("스택이 비어있습니다.");
+		return;
+	}
+	else
+		return s.data[s.top--];
 }
 
-int isFull(Stack* s) {
-    return s->top == MAX - 1;
+
+element peek(){//반환만
+		if(isEmpty()) {
+		printf("스택이 비어있습니다.");
+		return;
+	}
+	else return s.data[s.top];
+
 }
+int main(){
+	s.top = -1;
+	push(1);
+	push(2);
+	push(3);
+	printf("%d\n",pop());
+	printf("%d\n",peek());
+	printf("%d\n",pop());
+	return 0;
 
-void push(Stack* s, element c) {
-    if (isFull(s)) {
-        printf("Stack is full. Cannot push.\n");
-    } else {
-        s->data[++(s->top)] = c;
-    }
-}
-
-element pop(Stack* s) {
-    if (isEmpty(s)) {
-        printf("Stack is empty. Cannot pop.\n");
-        return -1;
-    } else {
-        return s->data[(s->top)--];
-    }
-}
-
-int evaluateRPN(char expression[]) {
-    Stack s;
-    initStack(&s);
-
-    for (int i = 0; expression[i] != '\0'; i++) {
-        if (isdigit(expression[i])) {
-            push(&s, expression[i] - '0'); // Convert character to integer
-        } else if (expression[i] == ' ') {
-            continue; // Ignore spaces
-        } else {
-            int operand2 = pop(&s);
-            int operand1 = pop(&s);
-
-            switch (expression[i]) {
-                case '+':
-                    push(&s, operand1 + operand2);
-                    break;
-                case '-':
-                    push(&s, operand1 - operand2);
-                    break;
-                case '*':
-                    push(&s, operand1 * operand2);
-                    break;
-                case '/':
-                    push(&s, operand1 / operand2);
-                    break;
-                default:
-                    printf("Invalid operator: %c\n", expression[i]);
-                    return -1;
-            }
-        }
-    }
-
-    return pop(&s);
-}
-
-int main() {
-    char expr[MAX];
-    fgets(expr, MAX, stdin);
-
-    int result = evaluateRPN(expr);
-    if (result != -1) {
-        printf("%d", result);
-    }
-
-    return 0;
 }

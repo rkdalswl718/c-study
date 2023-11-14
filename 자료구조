@@ -1,97 +1,53 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+int a[65];
+int i, n, key, result;
 
-#define KEY_SIZE 10
-#define TABLE_SIZE 13
-#define empty(item) (strlen(item.key)==0)
-#define equal(item1, item2) (!strcmp(item1.key, item2.key))
-
-typedef struct 
-{
-   char key[KEY_SIZE];
-}element;
-
-element hash_table[TABLE_SIZE];
-
-void init_table(element ht[])
-{
-   int i;
-   for(i=0; i<TABLE_SIZE; i++){
-      ht[i].key[0] = '\0';
-   }
+int search(int low, int high) {
+	if (low>high) return -1;
+	int middle;
+	middle = (low+ high/2);
+	cnt++;
+	if(key== a[middle]) return cnt;
+	else if (key >a[middle])return search(middle+1),high);
+	else return seach (low,middle-1);
+	
 }
 
-int transform(char *key){
-   int number = 0;
-   while(*key)
-      number = 31 * number + *key++;
-   return number;
+int search(int low, int high) {
+	if (low>high) return -1;
+	int middle;
+	middle = (low+ high/2);
+	cnt++;
+	if(key== a[middle]) return cnt;
+	else if (key >a[middle])return search(low,middle-1);
+	else return seach ((middle+1),high);
+	
 }
 
-int hash_function(char *key)
-{
-   return transform(key) % TABLE_SIZE;
-}
 
-void hash_lp_add(element item, element ht[])
-{
-   int i, hash_value;
-   hash_value = i = hash_function(item.key);
-   while(!empty(ht[i])){
-      if(equal(item, ht[i])){
-         fprintf(stderr, "탐색키가 중복되었습니다.\n");
-         exit(1);
-      }
-      i = (i +1) % TABLE_SIZE;
-      if(i==hash_value){
-         fprintf(stderr,"테이블이 가득찼습니다.\n");
-      }
-   }
-   ht[i]=item;
-}
 
-void hash_lp_search(element item, element ht[])
-{
-   int i, hash_value;
-   hash_value = i = hash_function(item.key);
-   while(!empty(ht[i]))
-   {
-      if(equal(item, ht[i])){
-         fprintf(stderr, "탐색 %s: 위치 = %d\n", item.key, i);
-         return;
-      }
-      i = (i+1)%TABLE_SIZE;
-      if(i==hash_value){
-         fprintf(stderr, "찾는 값이 테이블에 없음\n");
-         return;
-      }
-   }
-   fprintf(stderr, "찾는 값이 테이블에 없음\n");
-}
-
-void hash_lp_print(element ht[])
-{
-   int i;
-   printf("\n===============================\n");
-   for(i=0;i<TABLE_SIZE;i++)
-      printf("[%d] %s\n", i, ht[i].key);
-   printf("===============================\n\n");
-}
-
-int main(void)
-{
-   char *s[7] = {"do", "for", "if", "case", "else", "return", "function"};
-   element e;
-   int i;
-   for(i = 0;i<7;i++){
-      strcpy(e.key, s[i]);
-      hash_lp_add(e, hash_table);
-      hash_lp_print(hash_table);
-   }
-   for(i = 0; i<7;i++){
-      strcpy(e.key, s[i]);
-      hash_lp_search(e, hash_table);
-   }
-   return 0;
+int main() {
+	scanf("%d",&n);
+	for(i=0; i<n; i++){
+		scanf("%d",&f[i]);
+	}
+	scanf("%d",&key);
+	if(a[0]<a[1]) flag=1;
+	for(i=2; i<n, i++){
+		if(flag == 0 && a[i-1]<a[i]){
+			printf("불가능");
+			return 0; 
+		}
+		if(flag == 1 && a[i-1]>a[i]){
+			printf("불가능");
+			return 0; 
+		}
+	}
+	if(flag ==1) result == search(0,n-1);
+	else result - search1(0,n-1);
+	
+	if(result == -1) printf("실패");
+	else pritnf("%d",result);
+	return 0; 
+	}
 }
